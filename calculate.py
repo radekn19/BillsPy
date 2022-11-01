@@ -11,6 +11,7 @@ def add_records(input_value, input_description, person):
     if person == "A":
         dictRecordsA = {'value': value, 'description': description}
         listOfDistinctA.append(dictRecordsA)
+        print(listOfDistinctA, "add")
         return sum_values(listOfDistinctA)
     elif person == "B":
         dictRecordsB = {'value': value, 'description': description}
@@ -20,11 +21,16 @@ def add_records(input_value, input_description, person):
 
 def remove_record(value, person):
     if person == "A":
-        listOfDistinctA[:] = [d for d in listOfDistinctA if d.get('value') != value]
-        print(sum_values(listOfDistinctA))
+        for l in listOfDistinctA:
+            if l.get('value') == value[0] and l.get('description') == value[1]:
+                listOfDistinctA.remove(l)
+                break
         return sum_values(listOfDistinctA)
     elif person == "B":
-        listOfDistinctB[:] = [d for d in listOfDistinctB if d.get('value') != value]
+        for l in listOfDistinctB:
+            if l.get('value') == value[0] and l.get('description') == value[1]:
+                listOfDistinctB.remove(l)
+                break
         return sum_values(listOfDistinctB)
 
 

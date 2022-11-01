@@ -32,14 +32,13 @@ def add_recordB():
 
 # ---------------- Remove rows --------------------
 def remove_records():
-    a = treeA.selection()
+    a = treeA.selection()[0]
+    valA = treeA.item(a)['values']
     b = treeB.selection()
 
     if len(a) > 0:
-        for record_a in a:
-            treeA.delete(record_a)
-            print(treeA.item(record_a))
-            value_sum_a = calculate.remove_record(record_a, "A")
+            treeA.delete(a)
+            value_sum_a = calculate.remove_record(valA, "A")
             sumLabelA.config(text='Sum = ' + value_sum_a + ' PLN')
     elif len(b) > 0:
         for record_b in b:
@@ -67,9 +66,9 @@ frameB.grid(row=0, column=1, padx=10, pady=10)
 
 # ------------------- Labels -------------------------------
 valueALabel = Label(frameA, text="Value")
-nameALabel = Label(frameA, text="Name")
+nameALabel = Label(frameA, text="Label")
 valueBLabel = Label(frameB, text="Value")
-nameBLabel = Label(frameB, text="Name")
+nameBLabel = Label(frameB, text="Label")
 
 valueALabel.grid(row=0, column=0)
 nameALabel.grid(row=0, column=1)
@@ -89,15 +88,15 @@ valueInputB.grid(row=1, column=0)
 descriptionInputB.grid(row=1, column=1, padx=5)
 
 # ------------------- Treeview of values ---------------------
-columns = ('values', 'names')
+columns = ('values', 'labels')
 
 treeA = ttk.Treeview(frameA, columns=columns, show='headings')
 treeA.heading('values', text='Values')
-treeA.heading('names', text='Name')
+treeA.heading('labels', text='Label')
 
 treeB = ttk.Treeview(frameB, columns=columns, show='headings')
 treeB.heading('values', text='Values')
-treeB.heading('names', text='Name')
+treeB.heading('labels', text='Label')
 
 treeA.grid(row=2, columnspan=3, sticky='nsew')
 treeB.grid(row=2, columnspan=3, sticky='nsew')
