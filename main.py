@@ -4,7 +4,7 @@ import calculate
 
 
 # ---------------- Insert rows --------------------
-def add_recordA():
+def add_recordA(*args):
     try:
         answerA.config(text='')
         float(valueInputA.get())
@@ -18,7 +18,7 @@ def add_recordA():
         answerA.config(text='Please insert number')
 
 
-def add_recordB():
+def add_recordB(*args):
     try:
         answerB.config(text='')
         float(valueInputB.get())
@@ -119,6 +119,13 @@ inputButtonB = Button(frameB, text="Add", command=add_recordB)
 
 inputButtonA.grid(row=1, column=2)
 inputButtonB.grid(row=1, column=2)
+
+# -----------------Bind Enter key -------------------------
+valueInputA.bind("<Return>", add_recordA)
+descriptionInputA.bind("<Return>", add_recordA)
+
+valueInputB.bind("<Return>", add_recordB)
+descriptionInputB.bind("<Return>", add_recordB)
 
 # -------------------SUM Label ------------------------------
 sumLabelA = Label(frameA, text='')
