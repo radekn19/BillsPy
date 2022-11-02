@@ -1,5 +1,5 @@
-listOfDistinctA = []
-listOfDistinctB = []
+listOfDictionaryA = []
+listOfDictionaryB = []
 
 
 def add_records(input_value, input_description, person):
@@ -10,28 +10,27 @@ def add_records(input_value, input_description, person):
 
     if person == "A":
         dictRecordsA = {'value': value, 'description': description}
-        listOfDistinctA.append(dictRecordsA)
-        print(listOfDistinctA, "add")
-        return sum_values(listOfDistinctA)
+        listOfDictionaryA.append(dictRecordsA)
+        return sum_values(listOfDictionaryA)
     elif person == "B":
         dictRecordsB = {'value': value, 'description': description}
-        listOfDistinctB.append(dictRecordsB)
-        return sum_values(listOfDistinctB)
+        listOfDictionaryB.append(dictRecordsB)
+        return sum_values(listOfDictionaryB)
 
 
 def remove_record(value, person):
     if person == "A":
-        for l in listOfDistinctA:
-            if l.get('value') == value[0] and l.get('description') == value[1]:
-                listOfDistinctA.remove(l)
+        for lod in listOfDictionaryA:
+            if lod.get('value') == float(value[0]) and lod.get('description') == value[1]:
+                listOfDictionaryA.remove(lod)
                 break
-        return sum_values(listOfDistinctA)
+        return sum_values(listOfDictionaryA)
     elif person == "B":
-        for l in listOfDistinctB:
-            if l.get('value') == value[0] and l.get('description') == value[1]:
-                listOfDistinctB.remove(l)
+        for lod in listOfDictionaryB:
+            if lod.get('value') == float(value[0]) and lod.get('description') == value[1]:
+                listOfDictionaryB.remove(lod)
                 break
-        return sum_values(listOfDistinctB)
+        return sum_values(listOfDictionaryB)
 
 
 def sum_values(list_of_dict):

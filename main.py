@@ -12,7 +12,8 @@ def add_recordA():
         treeA.insert(parent='', index='end', text="", values=(valueInputA.get(), descriptionInputA.get()))
         valueInputA.delete(0, END)
         descriptionInputA.delete(0, END)
-        sumLabelA.config(text='Sum = '+value_sum_a + ' PLN')
+        sumLabelA.config(text='Sum = ' + value_sum_a + ' PLN')
+        valueInputA.focus()
     except ValueError:
         answerA.config(text='Please insert number')
 
@@ -26,25 +27,27 @@ def add_recordB():
         valueInputB.delete(0, END)
         descriptionInputB.delete(0, END)
         sumLabelB.config(text='Sum = ' + value_sum_b + ' PLN')
+        valueInputB.focus()
     except ValueError:
         answerB.config(text='Please insert number')
 
 
 # ---------------- Remove rows --------------------
 def remove_records():
-    a = treeA.selection()[0]
-    valA = treeA.item(a)['values']
-    b = treeB.selection()
+    a = []
+    if len(treeA.selection()) > 0:
+        a = treeA.selection()[0]
+        valA = treeA.item(a)['values']
+        treeA.delete(a)
+        value_sum_a = calculate.remove_record(valA, "A")
+        sumLabelA.config(text='Sum = ' + value_sum_a + ' PLN')
 
-    if len(a) > 0:
-            treeA.delete(a)
-            value_sum_a = calculate.remove_record(valA, "A")
-            sumLabelA.config(text='Sum = ' + value_sum_a + ' PLN')
-    elif len(b) > 0:
-        for record_b in b:
-            treeB.delete(record_b)
-            value_sum_b = calculate.remove_record(record_b, "B")
-            sumLabelB.config(text='Sum = ' + value_sum_b + ' PLN')
+    elif len(treeB.selection()) > 0:
+        b = treeB.selection()[0]
+        valB = treeB.item(b)['values']
+        treeB.delete(b)
+        value_sum_b = calculate.remove_record(valB, "B")
+        sumLabelB.config(text='Sum = ' + value_sum_b + ' PLN')
 
 
 # ----------------- Root ----------------------------------
@@ -111,8 +114,8 @@ treeB.configure(yscroll=scrollbar.set)
 scrollbar.grid(row=2, column=3, sticky='ns')
 
 # ------------------- Input field button --------------------
-inputButtonA = Button(frameA, text="Enter", command=add_recordA)
-inputButtonB = Button(frameB, text="Enter", command=add_recordB)
+inputButtonA = Button(frameA, text="Add", command=add_recordA)
+inputButtonB = Button(frameB, text="Add", command=add_recordB)
 
 inputButtonA.grid(row=1, column=2)
 inputButtonB.grid(row=1, column=2)
@@ -123,7 +126,6 @@ sumLabelA.grid(row=4, column=0)
 
 sumLabelB = Label(frameB, text='')
 sumLabelB.grid(row=4, column=0)
-
 
 # ------------------- Error message -------------------------
 answerA = Label(frameA, fg="red", text='')
